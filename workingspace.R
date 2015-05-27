@@ -22,3 +22,9 @@ source("best.R")
 ## Part 3: Ranking hospitals by outcome in a state
 
 source("rankhospital.R")
+
+###############################################################################
+
+## Part 4: Ranking hospitals by outcome in a state
+
+source("rankall.R")

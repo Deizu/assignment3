@@ -4,6 +4,11 @@ best <- function(state, outcome) {
   outcometable <- read.csv("outcome-of-care-measures.csv", 
                             na.strings="Not Available",
                             stringsAsFactors=FALSE)
+  
+  outcomecheck <- c("heart attack", "heart failure", "pneumonia") # Outcomes
+  statecheck <- as.character(unique(outcometable$State)) # States
+  statecheck <- statecheck[order(statecheck)] # States in A-Z order
+  
   outcometable[,11] <- as.numeric(outcometable[,11]) # 30 day heart atck drate
   outcometable[,17] <- as.numeric(outcometable[,17]) # 30 day heart fail drate
   outcometable[,23] <- as.numeric(outcometable[,23]) # 30 day pneumonia drate
@@ -11,17 +16,8 @@ best <- function(state, outcome) {
   names(outcometable) <- c("Provider.Number","Hospital.Name","State",
                            "Heart.Attack","Heart.Failure","Pneumonia")
   
-  outcomecheck <- c("heart attack", "heart failure", "pneumonia")
-    #message("Set up outcome check.")
-  
-  # Pull in hospital data and create a vector of unique state codes.
-  hospitaldata <- read.csv("hospital-data.csv")
-    #message("Pulled hospital info in.")
-  hospitalstate <- as.character(unique(hospitaldata$State))
-    #message("Grabbed all unique states for hospitals.")
-  
   # Check that state and outcome are valid
-  if (!state %in% hospitalstate) {
+  if (!state %in% statecheck) {
     stop("invalid state")
   }
   if (!outcome %in% outcomecheck) {

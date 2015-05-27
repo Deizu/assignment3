@@ -4,8 +4,11 @@ rankhospital <- function(state, outcome, num = "best") {
   outcometable <- read.csv("outcome-of-care-measures.csv", 
                            na.strings="Not Available",
                            stringsAsFactors=FALSE)
+  
   outcomecheck <- c("heart attack", "heart failure", "pneumonia") # Outcomes
   statecheck <- as.character(unique(outcometable$State)) # States
+  statecheck <- statecheck[order(statecheck)] # States in A-Z order
+  
   outcometable[,11] <- as.numeric(outcometable[,11]) # 30 day heart atck drate
   outcometable[,17] <- as.numeric(outcometable[,17]) # 30 day heart fail drate
   outcometable[,23] <- as.numeric(outcometable[,23]) # 30 day pneumonia drate
